@@ -53,7 +53,10 @@ a{color:inherit}
 .hero:before{content:"";position:absolute;inset:0;background-image:
   linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
   background-size:44px 44px;mask-image:radial-gradient(700px 400px at 20% 0%,#000,transparent 70%)}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:6px 40px;align-items:start}
+.hcopy{grid-column:1;grid-row:1}
+.costcard{grid-column:2;grid-row:1 / span 2;align-self:start}
+.hero .steps{grid-column:1;grid-row:2}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;
   text-transform:uppercase;color:var(--gold);background:rgba(241,188,94,.1);border:1px solid rgba(241,188,94,.25);
   padding:7px 13px;border-radius:100px}
@@ -205,21 +208,52 @@ footer .contact a{color:#eef0f7;text-decoration:none;font-weight:600}
 .saved .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
 
 @media (max-width:900px){
-  .hero .wrap{grid-template-columns:1fr;gap:28px}
-  .hero{padding:38px 0 120px}
-  .hero h1{font-size:31px}
-  .kpis{grid-template-columns:repeat(2,1fr);margin-top:-96px}
+  .hero .wrap{grid-template-columns:1fr;gap:22px}
+  .hcopy,.costcard,.hero .steps{grid-column:1;grid-row:auto}
+  .hero{padding:34px 0 112px}
+  .hero h1{font-size:30px}
+  .costcard{padding:22px}
+  .costcard .big{font-size:40px}
+  .hero .steps{margin-top:2px}
+  .kpis{grid-template-columns:repeat(2,1fr);margin-top:-92px}
   .grid.c4,.grid.c3{grid-template-columns:repeat(2,1fr)}
   .totalbar{grid-template-columns:1fr}
+  .totalbar .catgrid{grid-template-columns:1fr}
   .totalbar .final{text-align:left}
   footer .wrap{grid-template-columns:1fr}
-  .table-scroll{overflow-x:auto}
-  .mtable{min-width:640px}
+}
+/* ===== Tabela vira CARTÕES no celular ===== */
+@media (max-width:720px){
+  #materiais .card{background:transparent;border:none;box-shadow:none;overflow:visible}
+  .table-scroll{overflow:visible}
+  .mtable,.mtable tbody{display:block;min-width:0}
+  .mtable thead{display:none}
+  .mtable tr.cat-row{display:block}
+  .cat-row td{display:block;border-radius:11px;margin:20px 0 10px}
+  tr.item{display:flex;flex-wrap:wrap;gap:13px 12px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:15px;margin:0 0 11px;box-shadow:var(--shadow);align-items:flex-end}
+  tr.item:hover{background:var(--card)}
+  tr.item td{display:block;padding:0}
+  td.name{flex:1 1 100%}
+  td.name small{margin-top:5px}
+  td.num{flex:1 1 42%;text-align:left}
+  td.num::before{content:attr(data-label);display:block;font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:6px}
+  td.num .cell-inp{display:flex;width:100%}
+  td.num .cell-inp input,td.num .cell-inp input.wide{width:100%;text-align:left}
+  td.num .cell-inp.auto input{text-align:left}
+  td.sub-cell{flex:1 1 100%;display:flex;align-items:center;justify-content:space-between;
+    border-top:1px dashed var(--line);padding-top:12px;margin-top:2px}
+  td.sub-cell::before{margin-bottom:0}
+  td.sub-cell .sub{font-size:18px}
+  details.eng{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-top:6px}
+  details.eng>summary{border-radius:14px}
 }
 @media (max-width:560px){
   .kpis{grid-template-columns:1fr 1fr}
-  .grid.c4,.grid.c3{grid-template-columns:1fr}
   .topbar .brand small{display:none}
+  .hero h1{font-size:27px}
+  .costcard .big{font-size:36px}
 }
 
 /* print */
@@ -254,16 +288,11 @@ footer .contact a{color:#eef0f7;text-decoration:none;font-weight:600}
 <!-- HERO -->
 <header class="hero">
   <div class="wrap">
-    <div>
+    <div class="hcopy">
       <span class="eyebrow"><span class="dot" style="width:7px;height:7px;background:var(--gold);border-radius:50%"></span>Orçamento inteligente de materiais</span>
       <h1>Quanto sua reforma custa em <span class="hl">materiais</span> — calculado a partir da planta.</h1>
       <p class="lead">A ferramenta lê o projeto e a planta do imóvel, mede cada ambiente e transforma em quantidade exata de material e custo. Tudo editável em tempo real.</p>
       <span class="chip"><span class="dot"></span>Estudo de caso: Apartamento Way Petrópolis &middot; Cliente Natália</span>
-      <div class="steps">
-        <div class="step"><b><span class="n">1</span>Lê o projeto</b><span>Planta, memorial e vistas do imóvel.</span></div>
-        <div class="step"><b><span class="n">2</span>Mede os ambientes</b><span>Área de piso, paredes e perímetros.</span></div>
-        <div class="step"><b><span class="n">3</span>Calcula o custo</b><span>Coeficientes técnicos + seus preços.</span></div>
-      </div>
     </div>
     <aside class="costcard">
       <div class="lbl">Custo total estimado</div>
@@ -277,6 +306,11 @@ footer .contact a{color:#eef0f7;text-decoration:none;font-weight:600}
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#9498ad" stroke-width="2" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
         Valores recalculam sozinhos ao editar qualquer campo. Suas alterações ficam salvas neste navegador.</div>
     </aside>
+    <div class="steps">
+      <div class="step"><b><span class="n">1</span>Lê o projeto</b><span>Planta, memorial e vistas do imóvel.</span></div>
+      <div class="step"><b><span class="n">2</span>Mede os ambientes</b><span>Área de piso, paredes e perímetros.</span></div>
+      <div class="step"><b><span class="n">3</span>Calcula o custo</b><span>Coeficientes técnicos + seus preços.</span></div>
+    </div>
   </div>
 </header>
 
@@ -461,9 +495,9 @@ MATERIAIS.forEach(group=>{
       ? `<label class="sw"><input type="checkbox" id="on_${m.id}" data-persist ${m.on?'checked':''}><span class="tr"></span></label>`:'';
     rows += `<tr class="item" id="row_${m.id}">
       <td class="name"><div class="nm">${sw}<span>${m.nome}</span><span class="badge ${m.badge}">${m.badgeTxt}</span></div><small>${m.sub}</small></td>
-      <td class="num">${qtyCell}</td>
-      <td class="num"><span class="cell-inp"><span class="pre">R$</span><input class="wide" type="number" step="0.01" min="0" id="p_pr_${m.id}" data-persist value="${m.preco}"></span></td>
-      <td class="num"><span class="sub" id="sub_${m.id}">R$ 0</span></td>
+      <td class="num" data-label="Quantidade">${qtyCell}</td>
+      <td class="num" data-label="Preço unitário"><span class="cell-inp"><span class="pre">R$</span><input class="wide" type="number" step="0.01" min="0" id="p_pr_${m.id}" data-persist value="${m.preco}"></span></td>
+      <td class="num sub-cell" data-label="Subtotal"><span class="sub" id="sub_${m.id}">R$ 0</span></td>
     </tr>`;
   });
 });
