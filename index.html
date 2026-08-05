@@ -462,11 +462,14 @@ const MATERIAIS = [
   {cat:'Bancadas', items:[
     {id:'banc', nome:'Bancadas de quartzo (cozinha, lavanderia, banheiro)', sub:'CLS Mármores — Quartzo Super White', un:'vb', preco:11350, tipo:'man', q:1, badge:'b-cot', badgeTxt:'cotado'},
   ]},
+  {cat:'Vidros', items:[
+    {id:'vidro', nome:'Vidro da sacada (envidraçamento)', sub:'vidraçaria — fechamento do terraço', un:'vb', preco:7000, tipo:'man', q:1, badge:'b-cot', badgeTxt:'cotado'},
+  ]},
   {cat:'Pintura', items:[
     {id:'tinta',nome:'Tinta Suvinil Ouro Branco (fosco)', sub:'apê inteiro · 2 demãos', un:'lata 16L', preco:0, tipo:'man', q:2, badge:'b-forn', badgeTxt:'fornecido'},
   ]},
 ];
-const OBRA_CATS = ['Piso e assentamento','Preparo e nivelamento','Forro e gesso','Revestimento de parede','Pintura'];
+const OBRA_CATS = ['Piso e assentamento','Preparo e nivelamento','Forro e gesso','Revestimento de parede','Vidros','Pintura'];
 
 /* ---------- Build UI ---------- */
 const el = id => document.getElementById(id);
@@ -566,7 +569,7 @@ function compute(){
   el('kpi-itens').textContent = itens;
   el('kpi-m2').textContent = areaPiso>0 ? BRL0(obra/areaPiso) : 'R$ 0';
   // quebra por categoria (barra total)
-  const order=['Piso e assentamento','Preparo e nivelamento','Forro e gesso','Revestimento de parede','Bancadas','Pintura'];
+  const order=['Piso e assentamento','Preparo e nivelamento','Forro e gesso','Revestimento de parede','Vidros','Bancadas','Pintura'];
   el('catgrid').innerHTML = order.map(c=>{
     const v = c==='Pintura' ? 'fornecida' : BRL(catTotals[c]||0);
     return `<div class="r"><span class="k">${c}</span><span class="v">${v}</span></div>`;
